@@ -29,6 +29,18 @@ Replacing `sdX` with the descriptor of the block device corresponding to the
 gzip -cdk vitrobian_0.1.0.img.gz | sudo dd of=/dev/sdc bs=16M status=progress
 ```
 
+### Boot Configuration Select
+
+In order to boot from SD card:
+
+* attach jumper on pins 1-2 of J12 header
+
+* set `SW2` switch to following setting:
+
+| switch number | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|---------------|---|---|---|---|---|---|---|---|
+| switch value | 1 | 0 | 1 | 0 | 0 | 0 | 1 | 0 |
+
 #### LOG IN
 
 ```
