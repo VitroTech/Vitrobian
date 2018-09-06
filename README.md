@@ -29,6 +29,13 @@ Replacing `sdX` with the descriptor of the block device corresponding to the
 gzip -cdk vitrobian_0.1.0.img.gz | sudo dd of=/dev/sdc bs=16M status=progress
 ```
 
+#### LOG IN
+
+```
+Login: user
+Password: user
+```
+
 ## Building / Development
 The `Debian` image is assembled using the
 [debos](https://github.com/go-debos/debos) utility, which uses the `Debian`
