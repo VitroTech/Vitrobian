@@ -81,6 +81,11 @@ actions:
         start: 18MB
         end: 100%
 
+  - action: run
+    description: Set alias for /sbin/ifconfig
+    chroot: true
+    command: echo "alias ifconfig='/sbin/ifconfig'" >> /home/user/.bashrc
+
   - action: raw
     description: Install U-Boot SPL into image
     origin: downloaded-boot-files # this is the component name as specified in the download action
