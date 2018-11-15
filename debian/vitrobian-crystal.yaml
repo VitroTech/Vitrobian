@@ -22,11 +22,11 @@ actions:
 
   - action: apt
     description: Install extended packages
-    packages: [ locales, ssh, less, fbset, psmisc, strace, ed, ncdu, crda, console-setup, keyboard-configuration, debconf-utils, parted, unzip, build-essential, manpages-dev, python, bash-completion, gdb, pkg-config, avahi-daemon, hardlink, ca-certificates, curl, nfs-common, usbutils, dosfstools, apt-listchanges, usb-modeswitch, apt-transport-https, libmtp-runtime, rsync, htop ]
+    packages: [ locales, ssh, less, fbset, psmisc, strace, ed, ncdu, crda, console-setup, keyboard-configuration, debconf-utils, parted, unzip, build-essential, manpages-dev, python, bash-completion, gdb, pkg-config, avahi-daemon, hardlink, ca-certificates, curl, nfs-common, usbutils, dosfstools, apt-listchanges, usb-modeswitch, apt-transport-https, libmtp-runtime, rsync, htop, nano ]
 
   - action: apt
     description: Install network packages
-    packages: [ wpasupplicant, wireless-tools, dhcpcd5, net-tools, rfkill ]
+    packages: [ wpasupplicant, wireless-tools, dhcpcd5, net-tools, rfkill, iputils-ping, wget ]
 
   - action: run
     description: User setup
