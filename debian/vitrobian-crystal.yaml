@@ -28,6 +28,10 @@ actions:
     description: Install network packages
     packages: [ wpasupplicant, wireless-tools, dhcpcd5, net-tools, rfkill, iputils-ping, wget ]
 
+  - action: apt
+    description: Install packages needed to run greengrass core
+    packages: [ sqlite3 ]
+
   - action: run
     description: User setup
     chroot: true
@@ -85,6 +89,13 @@ actions:
     description: Set alias for /sbin/ifconfig
     chroot: true
     command: echo "alias ifconfig='/sbin/ifconfig'" >> /home/user/.bashrc
+
+  - action: run
+    description: Enable hardlink and softlink protection
+    chroot: true
+    command:
+      - echo "fs.protected_hardlinks = 1" >> /etc/sysctl.d/99-sysctl.conf
+      - echo "fs.protected_symlinks = 1" >> /etc/sysctl.d/99-sysctl.conf
 
   - action: raw
     description: Install U-Boot SPL into image
