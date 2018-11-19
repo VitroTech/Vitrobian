@@ -13,8 +13,9 @@ actions:
     suite: "stretch"
     components:
       - main
+      - contrib
+      - non-free
     mirror: https://deb.debian.org/debian
-    variant: minbase
 
   - action: apt
     description: Install base packages
@@ -31,6 +32,10 @@ actions:
   - action: apt
     description: Install packages needed to run greengrass core
     packages: [ sqlite3 ]
+
+  - action: apt
+    description: Extended packages from Raspbian
+    packages: [ netbase, v4l-utils, lua5.1, luajit, fake-hwclock, libfreetype6-dev, dphys-swapfile, man-db, policykit-1, ssh-import-id, firmware-atheros, firmware-brcm80211, firmware-libertas, firmware-misc-nonfree, firmware-realtek ]
 
   - action: run
     description: User setup
@@ -66,7 +71,7 @@ actions:
   - action: image-partition
     description: Create partitioned image
     imagename: {{ $image }}
-    imagesize: 4GB
+    imagesize: 8GB
     partitiontype: msdos
     mountpoints:
       - mountpoint: /
