@@ -23,7 +23,7 @@ actions:
 
   - action: apt
     description: Install extended packages
-    packages: [ locales, ssh, less, fbset, psmisc, strace, ed, ncdu, crda, console-setup, keyboard-configuration, debconf-utils, parted, unzip, build-essential, manpages-dev, python, bash-completion, gdb, pkg-config, avahi-daemon, hardlink, ca-certificates, curl, nfs-common, usbutils, dosfstools, apt-listchanges, usb-modeswitch, apt-transport-https, libmtp-runtime, rsync, htop, nano ]
+    packages: [ locales, ssh, less, fbset, psmisc, strace, ed, ncdu, crda, console-setup, keyboard-configuration, debconf-utils, parted, unzip, build-essential, manpages-dev, python, bash-completion, gdb, pkg-config, avahi-daemon, hardlink, ca-certificates, curl, nfs-common, usbutils, dosfstools, apt-listchanges, usb-modeswitch, apt-transport-https, libmtp-runtime, rsync, htop, nano, netbase, v4l-utils, lua5.1, luajit, fake-hwclock, libfreetype6-dev, dphys-swapfile, man-db, policykit-1, ssh-import-id, firmware-atheros, firmware-brcm80211, firmware-libertas, firmware-misc-nonfree, firmware-realtek ]
 
   - action: apt
     description: Install network packages
@@ -32,10 +32,6 @@ actions:
   - action: apt
     description: Install packages needed to run greengrass core
     packages: [ sqlite3 ]
-
-  - action: apt
-    description: Extended packages from Raspbian
-    packages: [ netbase, v4l-utils, lua5.1, luajit, fake-hwclock, libfreetype6-dev, dphys-swapfile, man-db, policykit-1, ssh-import-id, firmware-atheros, firmware-brcm80211, firmware-libertas, firmware-misc-nonfree, firmware-realtek ]
 
   - action: run
     description: User setup
