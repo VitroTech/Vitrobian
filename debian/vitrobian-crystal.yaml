@@ -29,10 +29,6 @@ actions:
     description: Install network packages
     packages: [ wpasupplicant, wireless-tools, dhcpcd5, net-tools, rfkill, iputils-ping, wget ]
 
-  - action: apt
-    description: Install packages needed to run greengrass core
-    packages: [ sqlite3 ]
-
   - action: run
     description: User setup
     chroot: true
