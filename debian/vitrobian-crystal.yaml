@@ -13,8 +13,9 @@ actions:
     suite: "stretch"
     components:
       - main
+      - contrib
+      - non-free
     mirror: https://deb.debian.org/debian
-    variant: minbase
 
   - action: apt
     description: Install base packages
@@ -22,7 +23,7 @@ actions:
 
   - action: apt
     description: Install extended packages
-    packages: [ locales, ssh, less, fbset, psmisc, strace, ed, ncdu, crda, console-setup, keyboard-configuration, debconf-utils, parted, unzip, build-essential, manpages-dev, python, bash-completion, gdb, pkg-config, avahi-daemon, hardlink, ca-certificates, curl, nfs-common, usbutils, dosfstools, apt-listchanges, usb-modeswitch, apt-transport-https, libmtp-runtime, rsync, htop, nano ]
+    packages: [ locales, ssh, less, fbset, psmisc, strace, ed, ncdu, crda, console-setup, keyboard-configuration, debconf-utils, parted, unzip, build-essential, manpages-dev, python, bash-completion, gdb, pkg-config, avahi-daemon, hardlink, ca-certificates, curl, nfs-common, usbutils, dosfstools, apt-listchanges, usb-modeswitch, apt-transport-https, libmtp-runtime, rsync, htop, nano, netbase, v4l-utils, lua5.1, luajit, fake-hwclock, libfreetype6-dev, dphys-swapfile, man-db, policykit-1, ssh-import-id, firmware-atheros, firmware-brcm80211, firmware-libertas, firmware-misc-nonfree, firmware-realtek ]
 
   - action: apt
     description: Install network packages
@@ -62,7 +63,7 @@ actions:
   - action: image-partition
     description: Create partitioned image
     imagename: {{ $image }}
-    imagesize: 4GB
+    imagesize: 8GB
     partitiontype: msdos
     mountpoints:
       - mountpoint: /
@@ -85,6 +86,13 @@ actions:
     description: Set alias for /sbin/ifconfig
     chroot: true
     command: echo "alias ifconfig='/sbin/ifconfig'" >> /home/user/.bashrc
+
+  - action: run
+    description: Enable hardlink and softlink protection
+    chroot: true
+    command:
+      - echo "fs.protected_hardlinks = 1" >> /etc/sysctl.d/99-sysctl.conf
+      - echo "fs.protected_symlinks = 1" >> /etc/sysctl.d/99-sysctl.conf
 
   - action: raw
     description: Install U-Boot SPL into image
