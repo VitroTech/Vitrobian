@@ -8,7 +8,7 @@ support the [Vitro Crystal](https://vitro.io/vitro-crystal.html) platform.
 ### Download image
 
 The latest, pre-build image can be downloaded from the
-[following link](https://s3-eu-west-1.amazonaws.com/prod-vitrobian-releases/vitrobian_0.1.0.img.gz)
+[following link](https://s3-eu-west-1.amazonaws.com/prod-vitrobian-releases/vitrobian_0.2.0.img.gz)
 
 ### Image flashing
 
@@ -19,14 +19,14 @@ Take a look at the [etcher](https://etcher.io/)
 #### CLI
 
 ```
-gzip -cdk vitrobian_0.1.0.img.gz | sudo dd of=/dev/sdX bs=16M status=progress
+gzip -cdk vitrobian_0.2.0.img.gz | sudo dd of=/dev/sdX bs=16M status=progress
 ```
 
 Replacing `sdX` with the descriptor of the block device corresponding to the
 `SD card`. For instance:
 
 ```
-gzip -cdk vitrobian_0.1.0.img.gz | sudo dd of=/dev/sdc bs=16M status=progress
+gzip -cdk vitrobian_0.2.0.img.gz | sudo dd of=/dev/sdc bs=16M status=progress
 ```
 
 #### LOG IN
