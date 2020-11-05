@@ -17,7 +17,7 @@ actions:
     name: downloaded-kernel # name for usage directory with unpacked content in other actions
 
   - action: debootstrap
-    suite: "stretch"
+    suite: "buster"
     components:
       - main
       - contrib
