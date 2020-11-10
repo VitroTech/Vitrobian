@@ -5,15 +5,28 @@ Initial image recipe based on an example from the
 
 # Building
 
-[debos-docker](https://github.com/3mdeb/debos-docker.git) container is used to
-perform the build.
-
-Assuming that the `run.sh` script is accessible in the `PATH` as described in the
-[Running section of the debos-docker](https://github.com/3mdeb/debos-docker#running),
-image can be build with following command:
+[godebos/debos](https://github.com/go-debos/debos/tree/master/docker) container is used to
+perform the build. First, pull docker image:
 
 ```
-debos-docker vitrobian-crystal.yaml
+docker pull godebos/debos
+```
+
+Next, make sure virtualization is enabled:
+
+```
+ls /dev/kvm
+```
+
+If there is no `dev/kvm` device, enable virtualization in your BIOS setup.
+
+Vitrobian image can be build with following command:
+
+```
+docker run --rm --interactive --tty --device /dev/kvm \
+--user $(id -u) --workdir /recipes \
+--mount "type=bind,source=$(pwd),destination=/recipes" \
+--security-opt label=disable godebos/debos vitrobian-crystal.yaml
 ```
 
 # Releasing

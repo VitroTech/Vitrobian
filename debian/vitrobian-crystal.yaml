@@ -88,11 +88,14 @@ actions:
     command: echo "alias ifconfig='/sbin/ifconfig'" >> /home/user/.bashrc
 
   - action: run
-    description: Enable hardlink and softlink protection
+    description: Enable hardlink protection
     chroot: true
-    command:
-      - echo "fs.protected_hardlinks = 1" >> /etc/sysctl.d/99-sysctl.conf
-      - echo "fs.protected_symlinks = 1" >> /etc/sysctl.d/99-sysctl.conf
+    command: echo "fs.protected_hardlinks = 1" >> /etc/sysctl.d/99-sysctl.conf
+
+  - action: run
+    description: Enable softlink protection
+    chroot: true
+    command: echo "fs.protected_symlinks = 1" >> /etc/sysctl.d/99-sysctl.conf
 
   - action: raw
     description: Install U-Boot SPL into image
