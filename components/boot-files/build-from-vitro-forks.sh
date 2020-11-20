@@ -2,13 +2,13 @@
 
 SCRIPT_ROOT_DIR="$(dirname $(readlink -f $0))"
 
-TOOLCHAIN_DIR_NAME="gcc-linaro-6.4.1-2018.05-x86_64_arm-linux-gnueabihf"
+TOOLCHAIN_DIR_NAME="gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabihf"
 TOOLCHAIN_ROOT_DIR="${SCRIPT_ROOT_DIR}/${TOOLCHAIN_DIR_NAME}"
 TOOLCHAIN_XZ="${TOOLCHAIN_ROOT_DIR}.tar.xz"
 TOOLCHAIN_BIN_DIR="${TOOLCHAIN_ROOT_DIR}/bin"
 TOOLCHAIN_XZ_NAME="${TOOLCHAIN_DIR_NAME}.tar.xz"
-TOOLCHAIN_URL="https://releases.linaro.org/components/toolchain/binaries/6.4-2018.05/arm-linux-gnueabihf/${TOOLCHAIN_XZ_NAME}"
-TOOLCHAIN_SHA256="5594e51e45913e50e5d67f2445c639d4fb6d91ff7d6f3bf2267cb961d99ffa89"
+TOOLCHAIN_URL="https://releases.linaro.org/components/toolchain/binaries/7.5-2019.12/arm-linux-gnueabihf/${TOOLCHAIN_XZ_NAME}"
+TOOLCHAIN_SHA256="abf877f021c5f094d396bac4d842ed6f13aecbf4c477fc5825cf2d8b1fe3ef22"
 
 UBOOT_DIR="${SCRIPT_ROOT_DIR}/u-boot"
 UBOOT_BRANCH="vitrobian-v2018.03"
@@ -17,11 +17,11 @@ UBOOT_REMOTE="https://github.com/VitroTech/u-boot.git"
 UBOOT_REV="c2938b2b4ad69ff589f787094183b453a50133fd"
 
 LINUX_DIR="${SCRIPT_ROOT_DIR}/linux"
-LINUX_BRANCH="vitrobian-v4.14"
+LINUX_BRANCH="vitrobian-v4.19"
 LINUX_DEFCONFIG="imx_v6_v7_defconfig"
 LINUX_REMOTE="https://github.com/VitroTech/linux.git"
 LINUX_DTB="imx6dl-crystal3.dtb"
-LINUX_REV="a7837a71bcd5fd5b62a0840bde0e7789a8f0cbfc"
+LINUX_REV="afa96be13b9804bf8ac5e4350f566ab2444228c7"
 
 THREADS="-j8"
 
