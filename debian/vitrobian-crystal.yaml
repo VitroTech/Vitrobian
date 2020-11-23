@@ -5,7 +5,7 @@ architecture: armhf
 actions:
   - action: download
     description: Download pre-build stuff
-    url: https://s3-eu-west-1.amazonaws.com/dev-vitrobian-components/vitro-crystal-boot-files_0.3.0.tar.gz
+    url: https://s3-eu-west-1.amazonaws.com/prod-vitrobian-components/vitro-crystal-boot-files_0.3.0.tar.gz
     unpack: true     # Unpack downloaded file
     name: downloaded-boot-files # name for usage directory with unpacked content in other actions
 
