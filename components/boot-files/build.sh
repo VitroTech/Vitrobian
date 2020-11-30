@@ -3,7 +3,7 @@
 OUT_DIR="vitro-crystal-boot-files"
 BOOT_DIR="$OUT_DIR/boot"
 UBOOT_DIR="$BOOT_DIR/u-boot"
-VITROBIAN_VERSION="$(cat ../../VERSION)"
+VITROBIAN_VERSION="$(cat VERSION)"
 
 rm -rf $OUT_DIR
 mkdir -p $UBOOT_DIR
