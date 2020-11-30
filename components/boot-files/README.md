@@ -1,10 +1,48 @@
-# Building using Docker container
+# Building Docker image
 
 * Build docker image from source
 
 ```
 $ docker build -t vitrobian-boot-files .
 ```
+
+When docker image is already built, we can move on to building required boot
+components.
+
+## Buidling using dedicated scripts
+
+Procedure can be carried out by utilizing dedicated scripts:
+
+- `docker_build_boot_components.sh` builds U-Boot, devictree and boot script
+and places final binaries in `vitrobian-boot-files` directory;
+
+- `docker_build_uboot.sh` builds custom U-Boot only and places final binaries
+in `vitrobian-boot-files/boot/u-boot` directory;
+
+- `docker_build_devicetree.sh` builds custom Device Tree only and places final
+`.dtb` file in `vitrobian-boot-files/boot` directory;
+
+- `docker_build_boot_script.sh` builds custom boot script and places final
+`.scr` file in `vitrobian-boot-files/boot/u-boot` directory;
+
+Executing any chosen script is done by directly running it from
+`Vitrobian/components/boot-files` directory:
+
+```
+Vitrobian/components/boot-files$ docker_build_boot_components.sh
+
+Vitrobian/components/boot-files$ docker_build_uboot.sh
+
+Vitrobian/components/boot-files$ docker_build_devicetree.sh
+
+Vitrobian/components/boot-files$ docker_build_boot_script.sh
+```
+
+Above procedure can be also done by directly running docker container.
+Although it is not recommended way, one may want to have more insight into
+what exactly is being done. Next section is describing it in details.
+
+## Building using Docker container directly
 
 * Run docker container
 
@@ -43,9 +81,9 @@ vitro-crystal-boot-files
 2 directories, 4 files
 ```
 
-    - imx6dl-crystal3.dtb is custom devicetree
-    - SPL and u-boot.img are custom U-Boot images
-    - boot.scr is custom boot script
+    - `imx6dl-crystal3.dtb` is custom devicetree
+    - `SPL` and `u-boot.img` are custom U-Boot images
+    - `boot.scr` is custom boot script
 
 `build.sh` script executes comprehensive boot components build. If you wish to
 build only specific ones, invoke specific command inside docker container:
