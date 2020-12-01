@@ -1,13 +1,149 @@
-# Building
+# Building Docker image
+
+* Build docker image from source
 
 ```
-AWS_PROFILE=<AWS_PROFILE> ./build.sh
+$ docker build -t vitrobian-boot-files .
 ```
 
-where `AWS_PROFILE` is profile name from `~/.aws/config`
+When docker image is already built, we can move on to building required boot
+components.
+
+## Buidling using dedicated scripts
+
+Procedure can be carried out by utilizing dedicated scripts:
+
+- `docker_build_boot_components.sh` builds U-Boot, devictree and boot script
+and places final binaries in `vitrobian-boot-files` directory;
+
+- `docker_build_uboot.sh` builds custom U-Boot only and places final binaries
+in `vitrobian-boot-files/boot/u-boot` directory;
+
+- `docker_build_devicetree.sh` builds custom Device Tree only and places final
+`.dtb` file in `vitrobian-boot-files/boot` directory;
+
+- `docker_build_boot_script.sh` builds custom boot script and places final
+`.scr` file in `vitrobian-boot-files/boot/u-boot` directory;
+
+Executing any chosen script is done by directly running it from
+`Vitrobian/components/boot-files` directory:
+
+```
+Vitrobian/components/boot-files$ docker_build_boot_components.sh
+
+Vitrobian/components/boot-files$ docker_build_uboot.sh
+
+Vitrobian/components/boot-files$ docker_build_devicetree.sh
+
+Vitrobian/components/boot-files$ docker_build_boot_script.sh
+```
+
+Above procedure can be also done by directly running docker container.
+Although it is not recommended way, one may want to have more insight into
+what exactly is being done. Next section is describing it in details.
+
+## Building using Docker container directly
+
+* Run docker container
+
+IMPORTANT: Following docker command should be run from
+`Vitrobian/components/boot-files` directory. Also, make sure to pass correct
+`-v` flag - `-v $PWD:/home/build`.
+
+```
+Vitrobian/components/boot-files$ docker run --rm -it -v $PWD:/home/build vitrobian-boot-files /bin/bash
+```
+
+* Inside docker container, run `build.sh` script:
+
+```
+(docker)root@36077c70bc38:/home/build# ./build.sh
+```
+
+Above script should create `vitro-crystal-boot-files` directory, which should
+also be visible outside docker container. Check if it has following content.
+If yes, then all boot componenets have been correctly built and docker container
+can be closed. Moreover, mentioned directory has been compressed to tarball
+`vitro-crystal-boot-files_0.3.0.tar.gz`.
+
+* `vitro-crystal-boot-files` should have following structure:
+
+```
+(docker)root@36077c70bc38:/home/build# tree vitro-crystal-boot-files
+vitro-crystal-boot-files
+`-- boot
+    |-- imx6dl-crystal3.dtb
+    `-- u-boot
+        |-- SPL
+        |-- boot.scr
+        `-- u-boot.img
+
+2 directories, 4 files
+```
+
+    - `imx6dl-crystal3.dtb` is custom devicetree
+    - `SPL` and `u-boot.img` are custom U-Boot images
+    - `boot.scr` is custom boot script
+
+`build.sh` script executes comprehensive boot components build. If you wish to
+build only specific ones, invoke specific command inside docker container:
+
+* to build U-Boot:
+
+```
+(docker)root@36077c70bc38:/home/build# ./build-from-vitro-forks.sh u-boot vitro-crystal-boot-files/boot/u-boot
+(...)
+  LD      spl/u-boot-spl
+  OBJCOPY spl/u-boot-spl-nodtb.bin
+  COPY    spl/u-boot-spl.bin
+  CFGS    arch/arm/mach-imx/spl_sd.cfg.cfgtmp
+  MKIMAGE SPL
+  CFGCHK  u-boot.cfg
+/home/build
+
+(docker)root@36077c70bc38:/home/build# ls -l vitro-crystal-boot-files/boot/u-boot/
+total 372
+-rw-r--r-- 1 root root  44032 Nov 30 12:17 SPL
+-rw-r--r-- 1 root root 334120 Nov 30 12:17 u-boot.img
+```
+
+* to build device tree:
+
+```
+(docker)root@36077c70bc38:/home/build# ./build-from-vitro-forks.sh devicetree vitro-crystal-boot-files/boot/
+(...)
+  DTC     arch/arm/boot/dts/vf610m4-colibri.dtb
+  DTC     arch/arm/boot/dts/vf610-cosmic.dtb
+  DTC     arch/arm/boot/dts/vf610m4-cosmic.dtb
+  DTC     arch/arm/boot/dts/vf610-twr.dtb
+  DTC     arch/arm/boot/dts/vf610-zii-dev-rev-b.dtb
+  DTC     arch/arm/boot/dts/vf610-zii-dev-rev-c.dtb
+/home/build
+
+(docker)root@36077c70bc38:/home/build# ls -l vitro-crystal-boot-files/boot/
+total 44
+-rw-r--r-- 1 root root 39756 Nov 30 12:18 imx6dl-crystal3.dtb
+drwxr-xr-x 2 root root  4096 Nov 30 12:17 u-boot
+```
+
+* to build boot script:
+
+```
+(docker)root@36077c70bc38:/home/build# mkimage -A arm -O linux -T script -C none -d boot.cmd vitro-crystal-boot-files/boot/u-boot/boot.scr
+Image Name:   
+Created:      Mon Nov 30 12:19:41 2020
+Image Type:   ARM Linux Script (uncompressed)
+Data Size:    422 Bytes = 0.41 KiB = 0.00 MiB
+Load Address: 00000000
+Entry Point:  00000000
+Contents:
+   Image 0: 414 Bytes = 0.40 KiB = 0.00 MiB
+```
 
 # Releasing
 
 ```
 AWS_PROFILE=<AWS_PROFILE> AWS_BUCKET=<AWS_BUCKET> ./release.sh
 ```
+
+where `AWS_PROFILE` is profile name from `~/.aws/config`

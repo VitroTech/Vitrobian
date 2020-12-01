@@ -5,16 +5,45 @@ Initial image recipe based on an example from the
 
 # Building
 
-[debos-docker](https://github.com/3mdeb/debos-docker.git) container is used to
-perform the build.
-
-Assuming that the `run.sh` script is accessible in the `PATH` as described in the
-[Running section of the debos-docker](https://github.com/3mdeb/debos-docker#running),
-image can be build with following command:
+[godebos/debos](https://github.com/go-debos/debos/tree/master/docker) container
+is used to perform the build. First, pull docker image:
 
 ```
-debos-docker vitrobian-crystal.yaml
+$ docker pull godebos/debos
 ```
+
+Next, make sure virtualization is enabled:
+
+```
+$ ls /dev/kvm
+```
+
+> If there is no `dev/kvm` device, enable virtualization in your BIOS setup.
+
+Vitrobian image can be build with following command:
+
+```
+docker run --rm --interactive --tty --device /dev/kvm \
+--user $(id -u) --workdir /recipes \
+--mount "type=bind,source=$(pwd),destination=/recipes" \
+--security-opt label=disable godebos/debos vitrobian-crystal.yaml
+```
+
+# Known issues
+
+There is known issue with platform booting. Sometimes boot hangs at `Begin:
+Running /scripts/local-block ... done.` stage. It is caused by
+`pfuze100-regulator` initialization issue. In bootlog it can be observed with
+following entries:
+
+```
+[   11.766521] pfuze100-regulator 2-0008: unrecognized pfuze chip ID!
+[   11.772868] pfuze100-regulator: probe of 2-0008 failed with error -110
+```
+
+If platform didn't boot, simply restart it via restart button or directly by
+unplugging and plugging power supply. We have notice that unsuccessful boot
+happens once every 10-15 boots.
 
 # Releasing
 
