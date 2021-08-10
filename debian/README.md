@@ -26,6 +26,7 @@ Vitrobian image can be build with following command:
 docker run --rm --interactive --tty --device /dev/kvm \
 --user $(id -u) --workdir /recipes \
 --mount "type=bind,source=$(pwd),destination=/recipes" \
+--group-add $(getent group kvm | cut -d: -f3) \
 --security-opt label=disable godebos/debos vitrobian-crystal.yaml
 ```
 
