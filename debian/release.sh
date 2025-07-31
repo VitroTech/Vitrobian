@@ -52,7 +52,7 @@ vault --version &> /dev/null || install_vault
 errorCheck "VAULT_TOKEN not given"
 
 # we use vault CLI, not API
-export VAULT_AGENT_ADDR="https://keystore-vault.dev.vitro.io"
+export VAULT_AGENT_ADDR="https://vault.vitro.link"
 export KEY_NAME="digicert_signing"
 
 # Compute hash locally to avoid uploading data just to be hashed
